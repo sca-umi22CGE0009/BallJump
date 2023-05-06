@@ -5,25 +5,43 @@ using UnityEngine;
 public class BGController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 5.0f;//スクロールの速さ
+    private GameObject goalPrefab;
     [SerializeField]
-    private float startLine;//BG開始位置
+    private GameObject bg;
     [SerializeField]
-    private float deadLine;//BG終了位置
+    private float speed = 4;
+    [SerializeField]
+    private Camera camera;
 
     void Start()
     {
+        StartCoroutine(MoveBg());
+        StartCoroutine(SetGoal());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed, 0, 0);//x座標をspeed分動かす
-
-        //もしdeadLineより大きくなったら
-        if (transform.position.x < deadLine)
+        camera.transform.position -= new Vector3(5.0f * Time.deltaTime, 0, 0);
+    }
+    IEnumerator SetGoal()
+    {
+        while (true)
         {
-            transform.position = new Vector3(startLine, 0, 0);//startLineに戻る
+            Vector3 pos = new Vector3(11,Random.Range(3f,-1.5f),0);
+            GameObject goal = Instantiate(goalPrefab, pos, transform.rotation) as GameObject;
+            goal.transform.parent = bg.transform;
+            yield return new WaitForSeconds (2.0f);
+        }
+    }
+    IEnumerator MoveBg()
+    {
+        while (true)
+        {
+            Vector3 pos = bg.transform.position;
+            pos.x -= speed * Time.deltaTime;
+            bg.transform.position = pos;
+            yield return 0;
+
         }
     }
 }
