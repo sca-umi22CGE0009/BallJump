@@ -18,9 +18,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb2d.AddForce(Vector2.up * jumping);
+            //瞬間的にY軸にjumpingの力を加える
+            rb2d.AddForce(Vector2.up * jumping, ForceMode2D.Impulse);
         }
     }
 }
