@@ -9,9 +9,9 @@ public class BGController : MonoBehaviour
     [SerializeField]
     private GameObject bg;
     [SerializeField]
-    private float speed = -5f; //背景をスクロールさせる速さ
+    private float speed = -3f; //背景をスクロールさせる速さ
     [SerializeField]
-    private float startLine = 0; //背景移動の開始位置
+    private float startLine = 18; //背景移動の開始位置
     [SerializeField]
     private float deadLine = -18; //背景移動の終了位置
 

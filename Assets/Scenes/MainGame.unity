@@ -302,9 +302,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bg: {fileID: 782527199}
-  speed: -5
-  startLine: 0
-  deadLine: -18.3
+  speed: -3
+  startLine: 18.5
+  deadLine: -18.5
 --- !u!1 &903982478
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +449,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -617,7 +617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164570546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 810, y: 0, z: 0}
+  m_LocalPosition: {x: 808, y: 0, z: 0}
   m_LocalScale: {x: 162, y: 247.5, z: 45}
   m_Children: []
   m_Father: {fileID: 2109386824}
@@ -687,9 +687,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bg: {fileID: 1164570546}
-  speed: -5
-  startLine: 0
-  deadLine: 0
+  speed: -3
+  startLine: 18.5
+  deadLine: -18.5
 --- !u!1 &1678752854
 GameObject:
   m_ObjectHideFlags: 0
