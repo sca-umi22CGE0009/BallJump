@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumping = 5.0f;
     [SerializeField]
-    private float speed = 2.0f;
+    private GameObject cube;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            //削除
+            Destroy(cube);
             //瞬間的にY軸にjumpingの力を加える
             rb2d.AddForce(Vector2.up * jumping, ForceMode2D.Impulse);
         }
