@@ -23,7 +23,7 @@ public class BGController : MonoBehaviour
     {
         transform.Translate(speed * Time.deltaTime, 0, 0); //x座標をscrollSpeed分動かす
 
-        if (transform.position.x < deadLine) //deadLineより大きくなったら
+        if (transform.position.x < deadLine) //deadLineより小さくなったら
         {
             transform.position = new Vector3(startLine, 0, 0);
         }

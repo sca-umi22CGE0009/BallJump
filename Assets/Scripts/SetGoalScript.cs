@@ -7,15 +7,11 @@ public class SetGoalScript : MonoBehaviour
     [SerializeField]
     private GameObject[] goalPrefab;
     [SerializeField]
-    private GameObject player;
-    [SerializeField]
     private float lineMax = 3f;
     [SerializeField]
     private float lineMin = -1.5f;
 
     private float time;
-
-    private float player_x; //プレイヤーのx軸
 
     private float x;
     private float y;
@@ -25,7 +21,7 @@ public class SetGoalScript : MonoBehaviour
 
     private void RandomRange()
     {
-        x = Random.Range(transform.position.x, x);
+        x = 2;
 
         y = Random.Range(lineMin, lineMax);
     }
@@ -48,7 +44,7 @@ public class SetGoalScript : MonoBehaviour
 
             //GameObjectを上記で決まったランダムな場所に生成
             int item = Random.Range(0, goalPrefab.Length);
-            Instantiate(goalPrefab[item], new Vector2(2 + player_x, y), goalPrefab[item].transform.rotation);
+            Instantiate(goalPrefab[item], new Vector2(x, y), goalPrefab[item].transform.rotation);
 
             //経過時間の初期化
             time = 0.0f;
