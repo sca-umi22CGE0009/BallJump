@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 429202967}
   - component: {fileID: 429202966}
   m_Layer: 5
-  m_Name: TitelText
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Titel    T
+  m_Text: Title    T
 --- !u!222 &429202967
 CanvasRenderer:
   m_ObjectHideFlags: 0
