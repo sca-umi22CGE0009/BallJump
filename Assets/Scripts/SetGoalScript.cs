@@ -7,21 +7,21 @@ public class SetGoalScript : MonoBehaviour
     [SerializeField]
     private GameObject[] goalPrefab;
     [SerializeField]
-    private float lineMax = 3f;
+    private float lineMax = 4f;
     [SerializeField]
-    private float lineMin = -1.5f;
+    private float lineMin = -2f;
 
     private float time;
 
     private float x;
     private float y;
 
-    private float speed = -5;
+
     int count;
 
     private void RandomRange()
     {
-        x = 2;
+        x = 10;
 
         y = Random.Range(lineMin, lineMax);
     }
@@ -33,7 +33,7 @@ public class SetGoalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * Time.deltaTime, 0, 0);
+
 
         //‘OƒtƒŒ[ƒ€‚©‚ç‚ÌŽžŠÔ‚ð‰ÁŽZ‚µ‚Ä‚¢‚­
         time += Time.deltaTime;
@@ -50,17 +50,9 @@ public class SetGoalScript : MonoBehaviour
             time = 0.0f;
             count++;
         }
-        if (count >= 1)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D othre)
-    {
-        if (othre.gameObject.tag == "item")
-        {
-            Destroy(gameObject);
-        }
+        //if (count >= 1)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }

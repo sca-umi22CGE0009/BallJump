@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private float speed = 4;
     private float time;
+
     public static int getscore()
     {
         return score;
@@ -35,7 +36,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isTouch){
+        if (!isTouch)
+        {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //削除
