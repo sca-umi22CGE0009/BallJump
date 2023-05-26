@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 4;
     private float time;
 
-    public static int getscore()
+    public static int GetScore()
     {
         return score;
     }
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isTouch)
         {
+            Destroy(cube, 1f);
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //削除
@@ -60,6 +61,11 @@ public class PlayerController : MonoBehaviour
         if (othre.gameObject.tag == "item")
         {
             score = score + 1;
+            SetCountText();
+        }
+        if (othre.gameObject.tag == "GoldGoal")
+        {
+            score = score + 3;
             SetCountText();
         }
     }

@@ -154,8 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalPrefab:
   - {fileID: 4648759383547028093, guid: 585cb3e5248f8a645b5da5f184521e4f, type: 3}
-  lineMax: 3.5
-  lineMin: -2
+  - {fileID: 2726045851646892112, guid: 192c3997228a6ee43a30425780227766, type: 3}
+  lineMax: 4
+  lineMin: -4
 --- !u!4 &424121580
 Transform:
   m_ObjectHideFlags: 0

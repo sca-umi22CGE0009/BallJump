@@ -17,8 +17,6 @@ public class SetGoalScript : MonoBehaviour
     private float y;
 
 
-    int count;
-
     private void RandomRange()
     {
         x = 10;
@@ -34,11 +32,10 @@ public class SetGoalScript : MonoBehaviour
     void Update()
     {
 
-
         //前フレームからの時間を加算していく
         time += Time.deltaTime;
 
-        if (time >= 4)
+        if (time >= 2.5f)
         {
             RandomRange();
 
@@ -48,11 +45,6 @@ public class SetGoalScript : MonoBehaviour
 
             //経過時間の初期化
             time = 0.0f;
-            count++;
         }
-        //if (count >= 1)
-        //{
-        //    Destroy(gameObject);
-        //}
     }
 }
