@@ -6,19 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb2d;
-    [SerializeField]
-    private float jumping = 5.0f;
-    [SerializeField]
-    private GameObject cube;
-    [SerializeField]
-    private Text countText;
+    [SerializeField,Header("ジャンプ力")] private float jumping = 5.0f;
+    private float speed;
+
+    [SerializeField,Header("シーン遷移するときの時間")] private float sceneTime;
+    [SerializeField,Header("スコアのUI")] private Text countText;
 
     private bool isTouch;
+    private bool isPush;
     public static int score;
 
-    private float speed = 4;
-    private float time;
 
     public static int GetScore()
     {
@@ -27,8 +24,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isTouch = false;
+        isPush = false;
+        sceneTime = 1.5f;
         score = 0;
-        rb2d = GetComponent<Rigidbody2D>();
        
         SetCountText();
     }
@@ -36,26 +34,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isTouch)
+        Vector2 pos = new Vector2(0, speed) * Time.deltaTime;
+        transform.Translate(pos);
+        if (!isPush)
         {
-            Destroy(cube, 1f);
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                //削除
-                Destroy(cube);
-                //瞬間的にY軸にjumpingの力を加える
-                rb2d.AddForce(Vector2.up * jumping, ForceMode2D.Impulse);
-            }
+            Time.timeScale = 0;
         }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isPush = true;
+
+            speed = jumping;
+        }
+
         if (isTouch)
         {
-            time += Time.deltaTime; 
-            if(time > 1.5f)
-            {
-                SceneManager.LoadScene("Score");
-            }
+            StartCoroutine(totalScore());
         }
     }
+    private IEnumerator totalScore()
+    {
+        yield return new WaitForSeconds(sceneTime);
+        SceneManager.LoadScene("Score");
+    }
+    //ゴールにふれたらスコア加算
     private void OnTriggerEnter2D(Collider2D othre)
     {
         if (othre.gameObject.tag == "item")
@@ -69,6 +76,7 @@ public class PlayerController : MonoBehaviour
             SetCountText();
         }
     }
+    //GameOverタグに当たったらシーン遷移
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "GameOver")
