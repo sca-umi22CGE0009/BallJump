@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Net.Http.Headers;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField,Header("ジャンプ力")] private float jumping = 5.0f;
-    private float speed;
+    [SerializeField,Header("ボールが落ちるときの速度")]private float posDown = 0.5f;
+    float playerY;
 
     [SerializeField,Header("シーン遷移するときの時間")] private float sceneTime;
     [SerializeField,Header("スコアのUI")] private Text countText;
@@ -15,7 +17,6 @@ public class PlayerController : MonoBehaviour
     private bool isTouch;
     private bool isPush;
     public static int score;
-
 
     public static int GetScore()
     {
@@ -27,15 +28,25 @@ public class PlayerController : MonoBehaviour
         isPush = false;
         sceneTime = 1.5f;
         score = 0;
-       
+
         SetCountText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 pos = new Vector2(0, speed) * Time.deltaTime;
+        //反発係数
+        //float vA = 10;
+        //float vB = 8;
+        //float e;
+        //e = vB / vA;
+
+        Vector2 pos = new Vector2(0, -playerY) * Time.deltaTime;
         transform.Translate(pos);
+        //自由落下
+        float g = 9.8f;
+        playerY = g * posDown;
+
         if (!isPush)
         {
             Time.timeScale = 0;
@@ -48,15 +59,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isPush = true;
-
-            speed = jumping;
+            //playerY = jumping * posDown;
         }
-
         if (isTouch)
         {
             StartCoroutine(totalScore());
         }
     }
+    //sceneTime秒後シーン遷移
     private IEnumerator totalScore()
     {
         yield return new WaitForSeconds(sceneTime);

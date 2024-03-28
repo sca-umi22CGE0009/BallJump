@@ -21,6 +21,11 @@ public class BGController : MonoBehaviour
     }
     private void Scroll()
     {
+        //実装予定
+        //アイテムを10の倍数分とったら0.5ずつスクロールスピードを上げる
+        //スピードが10になったらそれ以上は速くならない
+
+
         transform.Translate(speed * Time.deltaTime, 0, 0); //x座標をscrollSpeed分動かす
 
         if (transform.position.x < deadLine) //deadLineより小さくなったら
