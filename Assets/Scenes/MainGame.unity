@@ -566,8 +566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a83f5a6d3fa0e4ba43f731c253c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumping: 1
-  posDown: 0.5
+  jumping: 5
+  posDown: 1
+  groundObj: {fileID: 1891020942}
   sceneTime: 1.5
   countText: {fileID: 1345676609}
 --- !u!58 &932264423
@@ -1050,7 +1051,7 @@ GameObject:
   - component: {fileID: 1891020944}
   - component: {fileID: 1891020943}
   m_Layer: 0
-  m_Name: GameOver
+  m_Name: Ground
   m_TagString: GameOver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

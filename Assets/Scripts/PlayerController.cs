@@ -7,9 +7,14 @@ using System.Net.Http.Headers;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField,Header("ジャンプ力")] private float jumping = 5.0f;
-    [SerializeField,Header("ボールが落ちるときの速度")]private float posDown = 0.5f;
+    [SerializeField,Header("ジャンプ力")] private float jumping = 1.0f;
+    [SerializeField,Header("ボールが落ちるときの速度")]private float posDown = 1f;
     float playerY;
+    float playerPosY;
+    float beforePos;
+    float speedAfter;
+    float speedBefore;
+    [SerializeField, Header("床のobj")] private GameObject groundObj;
 
     [SerializeField,Header("シーン遷移するときの時間")] private float sceneTime;
     [SerializeField,Header("スコアのUI")] private Text countText;
@@ -28,7 +33,6 @@ public class PlayerController : MonoBehaviour
         isPush = false;
         sceneTime = 1.5f;
         score = 0;
-
         SetCountText();
     }
 
@@ -41,11 +45,9 @@ public class PlayerController : MonoBehaviour
         //float e;
         //e = vB / vA;
 
-        Vector2 pos = new Vector2(0, -playerY) * Time.deltaTime;
-        transform.Translate(pos);
         //自由落下
         float g = 9.8f;
-        playerY = g * posDown;
+        playerY = g * -posDown;
 
         if (!isPush)
         {
@@ -59,12 +61,25 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isPush = true;
-            //playerY = jumping * posDown;
+            playerPosY = this.transform.position.y;
+
+            beforePos = groundObj.transform.position.y - playerPosY;
+            float afterPos = 2 / beforePos;
+            Debug.Log(beforePos);
+            //元の速さ
+            speedBefore = (jumping * playerY * beforePos) / 2;
+            //後の速さ
+            speedAfter = speedBefore + afterPos;
+            playerY = speedAfter;
         }
         if (isTouch)
         {
             StartCoroutine(totalScore());
         }
+
+        Vector2 pos = new Vector2(0, playerY) * Time.deltaTime;
+        transform.Translate(pos);
+
     }
     //sceneTime秒後シーン遷移
     private IEnumerator totalScore()
