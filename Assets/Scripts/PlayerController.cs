@@ -7,14 +7,8 @@ using System.Net.Http.Headers;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField,Header("ジャンプ力")] private float jumping = 1.0f;
-    [SerializeField,Header("ボールが落ちるときの速度")]private float posDown = 1f;
-    float playerY;
-    float playerPosY;
-    float beforePos;
-    float speedAfter;
-    float speedBefore;
-    [SerializeField, Header("床のobj")] private GameObject groundObj;
+    private Rigidbody2D rb2d;
+    [SerializeField,Header("ジャンプ力")] private float jumping = 200f;
 
     [SerializeField,Header("シーン遷移するときの時間")] private float sceneTime;
     [SerializeField,Header("スコアのUI")] private Text countText;
@@ -29,6 +23,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        rb2d = GetComponent<Rigidbody2D>();
         isTouch = false;
         isPush = false;
         sceneTime = 1.5f;
@@ -39,16 +34,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //反発係数
-        //float vA = 10;
-        //float vB = 8;
-        //float e;
-        //e = vB / vA;
-
-        //自由落下
-        float g = 9.8f;
-        playerY = g * -posDown;
-
         if (!isPush)
         {
             Time.timeScale = 0;
@@ -57,29 +42,16 @@ public class PlayerController : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isPush = true;
-            playerPosY = this.transform.position.y;
-
-            beforePos = groundObj.transform.position.y - playerPosY;
-            float afterPos = 2 / beforePos;
-            Debug.Log(beforePos);
-            //元の速さ
-            speedBefore = (jumping * playerY * beforePos) / 2;
-            //後の速さ
-            speedAfter = speedBefore + afterPos;
-            playerY = speedAfter;
+            rb2d.AddForce(Vector2.up * jumping * Time.deltaTime, ForceMode2D.Impulse);
         }
         if (isTouch)
         {
             StartCoroutine(totalScore());
         }
-
-        Vector2 pos = new Vector2(0, playerY) * Time.deltaTime;
-        transform.Translate(pos);
-
     }
     //sceneTime秒後シーン遷移
     private IEnumerator totalScore()
