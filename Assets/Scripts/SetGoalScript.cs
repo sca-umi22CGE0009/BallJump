@@ -11,31 +11,24 @@ public class SetGoalScript : MonoBehaviour
     [SerializeField]
     private float lineMin = -2f;
 
+    [SerializeField] private float randomTime = 2.5f;
     private float time;
 
     private float x;
     private float y;
 
-
-    private void RandomRange()
-    {
-        x = 10;
-
-        y = Random.Range(lineMin, lineMax);
-    }
-    // Start is called before the first frame update
     void Start()
     {
+        time = randomTime;
     }
-
     // Update is called once per frame
     void Update()
     {
 
-        //前フレームからの時間を加算していく
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
 
-        if (time >= 2.5f)
+        //time秒たったらランダムで生成する
+        if (time <= 0)
         {
             RandomRange();
 
@@ -43,8 +36,14 @@ public class SetGoalScript : MonoBehaviour
             int item = Random.Range(0, goalPrefab.Length);
             Instantiate(goalPrefab[item], new Vector2(x, y), goalPrefab[item].transform.rotation);
 
-            //経過時間の初期化
-            time = 0.0f;
+            time = randomTime;
         }
+    }
+    //範囲指定
+    private void RandomRange()
+    {
+        x = 10;
+
+        y = Random.Range(lineMin, lineMax);
     }
 }
