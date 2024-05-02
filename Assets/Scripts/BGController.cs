@@ -1,36 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BGController : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = -3f; //背景をスクロールさせる速さ
-    [SerializeField]
-    private float startLine = 18; //背景移動の開始位置
-    [SerializeField]
-    private float deadLine = -18; //背景移動の終了位置
+    private const float maxLength = 1f;
+    private const string k_propName = "_MainTex";
+
+    [SerializeField] private Vector2 scrollSpeed;
+    [SerializeField] private Material material;
 
     void Start()
     {
+        if (GetComponent<Image>() is Image i)
+        {
+            material = i.material;
+        }
     }
 
     void Update()
     {
-        Scroll();
-    }
-    private void Scroll()
-    {
-        //実装予定
-        //アイテムを10の倍数分とったら0.5ずつスクロールスピードを上げる
-        //スピードが10になったらそれ以上は速くならない
-
-
-        transform.Translate(speed * Time.deltaTime, 0, 0); //x座標をscrollSpeed分動かす
-
-        if (transform.position.x < deadLine) //deadLineより小さくなったら
+        if (material)
         {
-            transform.position = new Vector3(startLine, 0, 0);
+            float x = Mathf.Repeat(Time.time * scrollSpeed.x, maxLength);
+            Vector2 offset = new Vector2(x, 0);
+            material.SetTextureOffset(k_propName, offset);
+        }
+    }
+    private void OnDestroy()
+    {
+        if (material)
+        {
+            material.SetTextureOffset(k_propName, Vector2.zero);
         }
     }
 }

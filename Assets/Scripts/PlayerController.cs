@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isPush = true;
-            rb2d.AddForce(Vector2.up * jumping * Time.deltaTime, ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(0, jumping * Time.deltaTime), ForceMode2D.Impulse);
         }
         if (isTouch)
         {
